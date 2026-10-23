@@ -10,15 +10,18 @@ Este documento detalla el proceso de instalación, configuración y ejecución d
    ls -lh ~/Siniestros_Viales_Palmira_20261022*
 
 ##2. Instalación de Librerías
+
 Instalar las librerías de Python necesarias para la visualización de datos:
 
 bash
 python3 -m pip install --user matplotlib seaborn pandas
-3. Creación del Script batch_siniestros.py
+
+##3. Creación del Script batch_siniestros.py
 Se creó el script en el directorio /opt/kafka/ utilizando el editor nano:
 
 bash
 nano /opt/kafka/batch_siniestros.py
+
 Nota importante sobre las columnas: Durante el desarrollo, se detectó que el dataset original contiene nombres de columnas con espacios (ej. CLASE SINIESTRO, LESIONADOS Y MUERTOS). Por lo tanto, el script final realiza un renombrado de columnas (withColumnRenamed) para facilitar el procesamiento.
 
 Código final implementado:
@@ -75,6 +78,8 @@ plt.savefig(output_path)
 print(f"\n✅ Gráfica guardada exitosamente en: {output_path}")
 
 spark.stop()
+
+
 4. Ejecución del Script
 Para ejecutar el script asegurando que Spark use el Python de usuario (donde se instalaron las librerías), se ejecutó el siguiente comando:
 
