@@ -83,5 +83,8 @@ spark.stop()
 4. Ejecución del Script
 Para ejecutar el script asegurando que Spark use el Python de usuario (donde se instalaron las librerías), se ejecutó el siguiente comando:
 
+movemos a carpeta
+cd /opt/kafka
+
 bash
 PYSPARK_PYTHON=python3 /opt/spark/bin/spark-submit batch_siniestros.py
