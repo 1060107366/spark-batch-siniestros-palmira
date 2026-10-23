@@ -9,7 +9,7 @@ Este documento detalla el proceso de instalación, configuración y ejecución d
    ```bash
    ls -lh ~/Siniestros_Viales_Palmira_20261022*
 
-###2. Instalación de Librerías
+##2. Instalación de Librerías
 Instalar las librerías de Python necesarias para la visualización de datos:
 
 bash
@@ -31,14 +31,14 @@ matplotlib.use('Agg') # Para guardar imágenes sin interfaz gráfica
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 1. Iniciar la sesión de Spark
+## 1. Iniciar la sesión de Spark
 spark = SparkSession.builder \
     .appName("BatchSiniestrosPalmira") \
     .getOrCreate()
 
 spark.sparkContext.setLogLevel("WARN")
 
-# 2. Cargar el dataset
+## 2. Cargar el dataset
 file_path = "/home/vboxuser/Siniestros_Viales_Palmira_20261022.csv" 
 df = spark.read.csv(file_path, header=True, inferSchema=True, sep=",")
 
@@ -47,11 +47,11 @@ df.printSchema()
 
 print(f"\n--- 2. Total de registros originales: {df.count()} ---")
 
-# 3. Limpieza y renombrado (Crucial para evitar errores)
+## 3. Limpieza y renombrado (Crucial para evitar errores)
 df_clean = df.withColumnRenamed("CLASE SINIESTRO", "Tipo_Siniestro") \
              .withColumnRenamed("LESIONADOS Y MUERTOS", "Gravedad")
 
-# 4. Análisis Exploratorio (EDA)
+## 4. Análisis Exploratorio (EDA)
 print("\n--- 3. Análisis: Top Tipos de Siniestros ---")
 top_clases = df_clean.groupBy("Tipo_Siniestro").agg(count("*").alias("Cantidad")).orderBy(desc("Cantidad"))
 top_clases.show(10, truncate=False)
@@ -60,7 +60,7 @@ print("\n--- 4. Distribución por Gravedad ---")
 top_gravedad = df_clean.groupBy("Gravedad").agg(count("*").alias("Cantidad")).orderBy(desc("Cantidad"))
 top_gravedad.show(5, truncate=False)
 
-# 5. Visualización
+## 5. Visualización
 pd_top_clases = top_clases.limit(10).toPandas()
 
 plt.figure(figsize=(10, 6))
